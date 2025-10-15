@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# This script is for group modification
+if [ $UID -ne 0 ]; then
+    echo "You must use Root Privileges to run this Script (use sudo)"
+    exit 1
+fi
+
+
+select var in "Change group name" "Change GID" "Exit"
+do
+
+    if [ "$var" = "Exit" ];
+    then
+	echo "Exiting SuccessFuly..!"
+	exit 1
+    fi
+
+    echo -n "Please enter the group name you want to modify: "
+    read groupname
+
+    grep "^$groupname:" /etc/group &>/dev/null
+    if [ $? -eq 0 ]; then
+        case $var in
+            "Change group name")
+                echo -n "Please enter the new group name: "
+                read newgroup
+                groupmod -n "$newgroup" "$groupname"
+                if [ $? -eq 0 ]; then
+                    echo "Group name changed successfully from $groupname to $newgroup."
+                else
+                    echo "Failed to change group name."
+                fi
+            ;;
+
+            "Change GID")
+                echo -n "Please enter the new GID: "
+                read newgid
+
+                # Check if GID exists
+                getent group "$newgid" &>/dev/null
+                if [ $? -eq 0 ]; then
+                    echo "GID $newgid already exists, please choose another."
+                else
+                    groupmod -g "$newgid" "$groupname"
+                    if [ $? -eq 0 ]; then
+                        echo "GID for group $groupname updated to $newgid successfully."
+                    else
+                        echo "Failed to update GID."
+                    fi
+                fi
+            ;;
+
+            "Exit")
+                echo "Exiting successfully..!"
+                exit 0
+            ;;
+
+            *)
+                echo "Invalid option..?"
+            ;;
+        esac
+    else
+        echo "This group does not exist, cannot modify."
+        break
+    fi
+done
+

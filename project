@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+# print_SHNOUDA.sh - show ASCII art in all colors
+
+# Define colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+FUCHSIA='\033[0;95m'
+CYAN='\033[0;36m'
+WHITE='\033[1;37m'
+NC='\033[0m' # Reset
+
+# ASCII art
+S[0]='  ____   _   _  _   _   _____   _   _  ____   ____    _    '
+S[1]=' / ___| | | | || \ | | /  _  \ | \ | ||  _ \ |  _ \  / \   '
+S[2]=' \___ \ | |_|_||  \| ||  / \  ||  \| || | | || | | |/ _ \  '
+S[3]='  ___) || |_| || |\  ||  \_/  || |\  || |_| || |_| / ___ \ '
+S[4]=' |____/ |_| |_||_| \_| \_____/ |_| \_||____/ |____/_/   \_\ '
+
+colors=("$GREEN" "$YELLOW" "$RED" "$CYAN" "$FUCHSIA" "$PURPLE")
+
+for i in "${!S[@]}"; do
+  echo -e "${colors[$i]}${S[$i]}${NC}"
+done
+echo " "
+echo " "
+# Spinner animation for 5 seconds
+spin='-\|*'
+end=$((SECONDS+5))
+i=0
+while [ $SECONDS -lt $end ]; do
+  i=$(( (i+1) %4 ))
+  printf "\r${MAGENTA}%s${NC}" "${spin:$i:1}"
+  sleep 0.2
+done
+
+
+echo -e "${RED}This ${YELLOW}script ${CYAN}was ${FUCHSIA}made ${GREEN}by ${PURPLE}S${FUCHSIA}h${YELLOW}n${CYAN}o${BLUE}u${GREEN}d${RED}a${NC}\n\n"
+
+PS3="shnouda> "
+#======================== code =========================
+
+echo -e "${WHITE}"
+select var in "Add User" "Modify User" "Delete User" "List Users" "Add Group" "Modify Group" "Delete Group" "List Groups" "Disable User" "Enable User" "Change Password" "About" "Exit"
+do
+    echo -e "\n"
+    case $var in
+        "Add User")
+		echo -e "${YELLOW}this script for add user"
+		./scripts/useradd
+            ;;
+        "Modify User")
+		echo -e "${YELLOW}this script for Modify User"
+
+		./scripts/usermod
+            ;;
+        "Delete User")
+        	echo -e "${GREEN}this script for Delete User"
+
+		./scripts/deluser
+            ;;
+        "List Users")
+         	echo -e "${PURPLE}this script for List Users"
+
+		./scripts/listusers
+            ;;
+        "Add Group")
+         	echo -e "${FUCHSIA}this script for Add Group"
+
+		./scripts/groupadd
+            ;;
+        "Modify Group")
+         	echo -e "${BLUE}this script for Modify Group"
+
+		./scripts/groupmod
+            ;;
+        "Delete Group")
+         	echo -e "${CYAN}this script for Delete Group"
+
+		./scripts/groupdel
+            ;;
+        "List Groups")
+          	echo -e "${GREEN}this script for List Groups"
+
+		./scripts/listgroups
+            ;;
+        "Disable User")
+         	echo -e "${YELLOW}this script for Disable User"
+
+		./scripts/unlookacc
+            ;;
+        "Enable User")
+           	echo -e "${PURPLE}this script for Enable User"
+
+		./scripts/lockacc
+            ;;
+        "Change Password")
+            	echo -e "${BLUE}this script for Change Password"
+
+		./scripts/changpass
+            ;;
+        "About")
+		echo -e "${YELLOW}"
+		./scripts/about
+            ;;
+        "Exit")
+            echo "Exiting...!"
+            break
+            ;;
+        *)
+            echo "Invalid option, try again."
+            ;;
+    esac
+done
+

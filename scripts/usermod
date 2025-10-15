@@ -1,0 +1,103 @@
+#!/bin/bash
+
+PS3="usermod:>"
+
+#this script for user modification
+if [ $UID -ne 0 ];
+then
+        echo "You must use Root Prifilage to run this Script (use sudo)"
+fi
+
+id "$username" &>/dev/null
+
+select var in "Change login name" "Change home directory" "Change login shell" "Change primary group" "Set account expiry" "Change user ID (UID)" "exit"
+do
+
+	if [ "$var" = "exit" ];
+	then
+		echo "Exiting Successfuly..!"
+		exit 1
+	fi
+	echo -n "Please Enter the username that you need to modify his Account: "
+        read username
+
+        id "$username" &>/dev/null
+        if [ $? -eq 0 ];
+        then
+		case $var in
+
+		"Change login name")
+
+			echo -n "please enter the new name: "
+			read newname
+			usermod -l "$newname"  "$username"
+			echo "username changed from '$username' to '$newname'."
+		;;
+
+		"Change home directory")
+
+                        echo -n "please enter the new home path like /home/username: "
+                        read path
+                        usermod -d "$path"  "$username"
+			echo "Home Dir changed from '/home/$username' to '$path'."
+                ;;
+
+		"Change login shell")
+
+                        echo -n "please enter the new shell like /bin/ksh or /sbin/nologin or /bin/bash: "
+                        read newshell
+                        usermod -s "$newshell"  "$username"
+			echo "The Shell changed from '/bin/bash' to '$newshell'."
+                ;;
+
+		"Change primary group")
+
+                        echo -n "please enter the new group name: "
+			read groupname
+			grep "^$groupname:" /etc/group &>/dev/null
+			if [ $? -eq 0 ];
+        		then
+
+                		$USERMOD -g "$groupname" "$username"
+				echo "Primary Group changed to '$groupname'."
+        		else
+                		echo "Group $groupname does not exist!"
+		    		exit 1	
+        		fi
+                ;;
+
+		"Set account expiry")
+
+                        echo -n "please enter the expire date for account such as 'YYYY-MM-DD' "
+                        read  date
+                        usermod -e "$date"  "$username"
+			echo "the Account expire is changed to '$date'"
+                ;;
+
+		"Change user ID (UID)")
+
+                        echo -n "please enter the new ID for user: "
+                        read id
+			getent passwd "$id" &>/dev/null
+			if [ $? -ne 0 ];
+			then
+                        	usermod -u "$id"  "$username"
+                		echo "user ID is Updated successfully to '$id'...!"
+			else
+				echo "UID $uid already exists!"
+			fi
+		;;
+		"exit")
+				echo "Exiting Successfuly..!"
+				exit 0
+		;;
+		*)
+				echo "invalid option..?"
+		;;
+		esac
+        else
+
+                echo "this User Dosen't Exist to Modifiy his Account"
+                break
+        fi
+done

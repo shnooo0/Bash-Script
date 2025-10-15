@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#this Script For add passwd for users 
+
+id "$username" &>/dev/null
+
+while true
+do
+	echo -n "enter the username that you need to change Password: "
+	read username
+
+	id "$username" &>/dev/null
+	if [ $? -eq 0 ];
+	then
+		passwd "$username"
+		break
+	else
+		echo "$username is not Exist: "
+	fi
+done
+
+

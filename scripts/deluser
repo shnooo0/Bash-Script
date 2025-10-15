@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# this Script For del user with username
+
+if [ $UID -ne 0 ];
+then
+        echo "You must use Root Prifilage to run this Script (use sudo)"
+fi
+
+id "$username" &>/dev/null
+while true
+do
+        echo -n "Please Enter the name of user that you need to delete: "
+        read username
+
+        id "$username" &>/dev/null
+
+        if [ $? -eq 0 ];
+        then
+		echo -n "Are you sure you want to delete user '$username' (yes,no): "
+
+		read option
+		if [ $option = "yes" -o $option = "y" ];
+		then
+			userdel -r  $username &>/dev/null
+                	echo "User '$username' Deleted successfully."
+                	break
+		else
+			echo "User deletion cancelled..!"
+			break
+		fi
+        else
+		echo "User '$username' Dosen't Exist.."
+        fi
+done

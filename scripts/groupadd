@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# this Script For add user with username
+
+if [ $UID -ne 0 ];
+then
+        echo "You must use Root Prifilage to run this Script (use sudo)"
+fi
+
+while true
+do
+        echo -n "Please Enter the group name that you need to add: "
+        read groupname
+
+        grep "^$groupname:" /etc/group &>/dev/null
+        if [ $? -eq 0 ];
+        then
+                echo "Group '$groupname' is Already exist, try another one..."
+        else
+                groupadd $groupname
+
+                echo "Group '$groupname' created successfully."
+                break
+        fi
+done

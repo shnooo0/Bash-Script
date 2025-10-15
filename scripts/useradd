@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# this Script For add user with username
+
+if [ $UID -ne 0 ];
+then
+	echo "You must use Root Prifilage to run this Script (use sudo)"
+fi
+
+id "$username" &>/dev/null
+
+while true
+do
+	echo -n "Please Enter the name of user that you need to add: "
+	read username
+
+	id "$username" &>/dev/null
+
+	if [ $? -eq 0 ];
+	then
+		echo "User '$username' already exists. Try another one."
+	else
+		ls /home/ | grep "^$username"
+		if [ $? -eq 0 ];
+		then
+			useradd "$username" &>/dev/null
+			echo "User '$username' created successfully."
+			break
+		else
+			useradd -m "$username" &>/dev/null
+			echo "User '$username' created successfully."
+                        break
+		fi
+	fi
+done

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#this Script for list all groups
+
+groups_list=$(awk -F: '$3 >= 1000 {print $1 "  ---->  (GID: "$3")"}' /etc/group)
+echo "$groups_list"
