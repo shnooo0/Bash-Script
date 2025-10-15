@@ -44,7 +44,7 @@ This project demonstrates **Bash scripting**, **menu-driven automation**, **colo
 ---
 
 ## 📂 Project Structure
-
+```bash
 Bash-Script/
 │
 ├── print_SHNOUDA.sh # Main script (menu interface)
@@ -62,6 +62,7 @@ Bash-Script/
 ├── unlookacc
 ├── changpass
 └── about
+```
 
 ## ⚙️ Installation & Usage
 
@@ -140,6 +141,5 @@ If you find this project useful, please consider:
 
 ⭐ Starring the repository on GitHub
 
-🐛 Reporting bugs or suggestions via Issues
+🐛 Reporting bugs or suggestions via [Issues](shnoudanabill@gmail.com)
 
-🔄 Contributing improvements via Pull Requests
