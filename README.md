@@ -1,23 +1,45 @@
-# Project Name
+# 🧑‍💻 Shnouda’s Admin Tool
 
-## 📘 About
-This project demonstrates practical skills in network and security engineering, including configuration, automation, and system management.  
-It was developed as part of my hands-on training and showcases my ability to design and secure IT environments.
+[![Bash](https://img.shields.io/badge/Language-Bash-blue.svg)](https://www.gnu.org/software/bash/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey.svg)](#)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)](#)
 
-## 🛠️ Technologies Used
-- Python / Bash / PowerShell  
-- Cisco Networking (CCNA-level)  
-- Fortinet & Firepower  
-- IBM QRadar  
-- Windows & Linux Administration
+---
 
-## ⚙️ Features
-- Network automation and configuration
-- Security policy implementation
-- Log analysis and monitoring
-- Vulnerability detection and mitigation
+## 🎯 Overview
 
-## 🚀 How to Use
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+**Shnouda’s Admin Tool** is a **Bash-based Linux administration utility** that provides an **interactive and colorful command-line interface** for managing users and groups.  
+It simplifies system administration tasks by combining essential user and group management operations into one script with an easy-to-use menu.
+
+---
+
+## 🌟 Features
+
+### 👤 User Management
+- Add, modify, delete, and list users  
+- Automatically filters human users (UID ≥ 1000)
+
+### 👥 Group Management
+- Add, modify, delete, and list groups
+
+### 🔐 Account Control
+- Lock (disable) or unlock (enable) user accounts securely
+
+### 🔑 Password Management
+- Change user passwords easily via interactive menu
+
+### 🧭 Interactive Menu
+- Simple menu-driven system using the `select` command  
+- Colorful and clear terminal output with animations
+
+### 🖥️ Visuals
+- Displays **ASCII art banner** and a **spinner animation** at startup
+
+### 🛡️ Security
+- Requires **root privileges**, ensuring administrative safety
+
+---
+
+## 📂 Project Structure
+
